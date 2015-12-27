@@ -19,3 +19,5 @@ function concat(lists){
 }
 var buf4=concat([buf1,buf2,buf3])
 console.log(buf4)
+
+
