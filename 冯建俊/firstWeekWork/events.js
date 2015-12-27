@@ -16,4 +16,4 @@ event.once("say",sayAge)
 event.emit("say");
 event.emit("say");
 event.removeAllListeners("say");
-event.emit("say");
+event.emit("say")
