@@ -19,6 +19,7 @@
                 var val=document.querySelector("#str").value;
                 var formdata=new FormData();
                 formdata.append("str",val);
+                formdata.append("name","fjj")
                 var url=location.href;
                 var xhr=new XMLHttpRequest();
 
@@ -28,7 +29,7 @@
                         document.querySelector("#base64").value=xhr.responseText;
                     }
                 }
-            xhr.send("str="+val)
+            xhr.send(formdata)
         }
         }
     </script>

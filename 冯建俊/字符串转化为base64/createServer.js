@@ -7,6 +7,8 @@ var fs=require("fs");
 var mime=require("mime");
 var base64=require("./changeToBase64")
 var multer  = require('multer')
+var querystring=require("querystring");
+var multiparty = require('multiparty');
 function serve(req,res){
 
     var urlObj = url.parse(req.url, true);
@@ -19,15 +21,29 @@ function serve(req,res){
                 res.end();
             })
         }else if(method == "POST"){
+            var form = new multiparty.Form();
+            form.parse(req, function(err, fields, files) {
+                var base64str=base64(fields.str[0]);
+                res.write(base64str);
+                res.end();
 
-            var data="";
+                /*Object.keys(files).forEach(function(name) {
+                    console.log('got file named ' + name);
+                });
+*/
+                /*console.log('Upload completed!');
+                //res.setHeader('text/plain');
+                res.end('Received ' + files.length + ' files');*/
+            });
+            /*var data="";
             req.on("data",function(chunk){
                 data+=chunk;
             })
             req.on("end",function(){
-                res.write(base64(data.substring(4)));
+                console.log(data)
+                //res.write(base64(querystring.parse(data).str));
                 res.end();
-            })
+            })*/
 
         }
 
