@@ -2,7 +2,7 @@
  * Created by fengjj on 2015/12/29.
  */
 function SelfEvent(){
-    this.fnArr=[];
+    this.fnArr={};
 }
 SelfEvent.prototype={
     constructor:"SelfEvent",
@@ -11,7 +11,6 @@ SelfEvent.prototype={
             this.fnArr[eventName]=[];
         }
         var flag=this.fnArr[eventName].every(function(fn){
-            console.log(fn !== callback)
             return fn !== callback;
         })
         if(flag){
@@ -33,15 +32,13 @@ SelfEvent.prototype={
         }
         if(!!eventname){
             if(!!listener){
-                this.fnArr[eventname].filter(function(fn){
-                    console.log(fn.name)
-                    return fn !== listener;
+                this.fnArr[eventname]=this.fnArr[eventname].filter(function(fn){
+                    //this.fnArr[eventname][index]=null;
+                    return fn !== listener
                 })
-                console.log(this.fnArr[eventname].length)
             }else{
                 delete this.fnArr[eventname];
             }
-
         }else{
             this.fnArr=[];
         }
@@ -52,8 +49,7 @@ SelfEvent.prototype={
             callback.call(self);
             self.removeListen(eventname,onceFn);
         }
-        this.on(eventname,onceFn)
-
+        this.on(eventname,onceFn);
     }
 }
 //moudule.exports=SelfEvent;
