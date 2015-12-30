@@ -1,0 +1,15 @@
+div {
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    background: red;
+    text-align: center;
+    line-height: 200px;
+    font-size: 3em;
+    text-shadow: 5px 5px 5px rgba(0, 0, 0, .8);
+}
