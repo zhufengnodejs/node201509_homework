@@ -1,0 +1,77 @@
+#问答题
+##1. 200HTTP响应是什么意思
+
+     一切正常，请求成功
+
+##2. Connection:Keep-Alive头为什么很重要
+
+     持续保持连接，避免重复创建
+
+##3. 如何导入一个模块
+
+		var mokuai=require("mokuai")
+
+##4. 如何安装一个模块
+
+       npm install mokuai
+
+##5. 写出 url http fs mime 模块中的几个常用方法，并注明其作用
+
+    url:
+	    url.pars(urlStr); //将urlStr解析成一个对象
+	http:
+        http.createServer(); //创建新的服务	
+	fs:
+        fs.read(); //异步读取文件	
+
+
+##6. 写出几个global下的全局变量并注明其作用
+
+	__dirname:当前文件夹所在路径
+	__filename:当前文件所在路径
+	setInterval：每隔ms秒后调用回调
+    require:导入模块
+
+
+##7. 写出几个process 下的几个属性或方法并注明其作用
+      process.pid //当前进程ID
+
+#代码题
+##1. 如何在node中启用一个服务并监听8080端口  并向浏览器返回响应内容(内容包括简单的html+简单的css样式)
+    var http=require("http");
+	var server=function(request,response){
+		console.log(request.headers.host.port);
+		response.setHeader('Content-Type','text/html;charset=utf-8');
+		response.setHeader('name','guojinpeng');//设置响应头
+		response.write("<div style='background: red;'>这是我通过webstrom写的第一份作业</div>");
+		response.end();
+	}
+	http.createServer(server).listen(8080);
+
+##2. 实现一个简单的事件监听 包括添加监听  发射事件 移除监听
+	var EventEmitter = require('events');
+	var util = require('util');
+	function Bell(name){
+		this.name = name;
+	}
+	util.inherits(Bell,EventEmitter);
+	var jingleBell = new Bell('jingle');
+	jingleBell.on('ring',function(){
+		console.log('收到礼物1');
+	});
+	jingleBell.removeAllListeners('ring');
+
+	jingleBell.addListener('ring',function(){
+		console.log('收到礼物2');
+	});
+	jingleBell.emit('ring');
+
+
+
+
+
+##3. 如何读取一个txt文本，并且解决乱码问题
+
+##4. 自己实现一遍buffer的拷贝方法
+
+##5. buffer数据转换成base64字符串()
