@@ -1,0 +1,50 @@
+1. 200HTTP响应是什么意思
+OK, 文档正确返回
+
+2. Connection:Keep-Alive头为什么很重要
+Keep-Alive功能使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接. HTTP/1.0中只有提供Connection:Keep-Alive请求首部时才能使用它; HTTP/1.1取消了对keep-alive连接的支持, 使用名为持久连接(persistent connection)的改进型设计取代了它, HTTP/1.1的持久连接在默认情况下是激活的.
+
+3. 如何导入一个模块
+var math = require(模块);
+
+4. 如何安装一个模块
+npm install <name>
+npm install <name> -g
+spm install <name> -save-dev
+
+5. 写出 url http fs mime 模块中的几个常用方法，并注明其作用
+url.parse(request.url, true); // 将url字符串转成url对象
+
+http.createServer([requestListener]) // 创建服务器
+
+mime.lookup(pathname)  // 解析Content-Type的类型
+
+fs.open() // 打开文件
+fs.read() // 将文件部分读入缓存区
+fs.appendFile() // 追加数据
+fa.write() // // 讲数据部分写入文件
+fs.writeFile()  // 将数据完整写入文件
+fs.readFile()  // 将文件作为整体读入缓存区
+fs.close() // 关闭
+
+6. 写出几个global下的全局变量并注明其作用
+process  // node进程
+setTimeout // 延时
+clearTimeout // 清除延时
+setInterval // 以指定周期调用
+clearInterval // 清除interval
+setImmediate // 延时, 优先级比setTimeout低
+clearImmediate // 清除延迟
+Buffer // 暂时存放输入输出数据的一段内存
+
+
+7. 写出几个process 下的几个属性或方法并注明其作用
+process.pid // 当前进程的进程号
+process.argv // 当前进程的命令行参数数组
+process.kill() // 停止进程
+process.cwd() // 当前工作目录
+process.chdir() // 改变目录
+process.nextTick() // 轮询, 排到下个队列顶部
+process.stdin // 指向标准输入
+process.stdout // 指向标准输出
+process.stderr // 指向标准错误
