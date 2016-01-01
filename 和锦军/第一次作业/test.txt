@@ -1,0 +1,2 @@
+中英文混杂的一个文本文件
+This is a test txt file
