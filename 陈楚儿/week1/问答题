@@ -1,0 +1,45 @@
+1. 200HTTP响应是什么意思
+
+=>  请求正确处理了.
+
+2. Connection:Keep-Alive头为什么很重要
+
+=> keep-alive功能使客户端到服务器端的连接持续有效;
+
+3. 如何导入一个模块
+
+=>  require();
+
+4. 如何安装一个模块
+
+=> npm install 'name'
+
+5. 写出 url http fs mime 模块中的几个常用方法，并注明其作用
+=>  url.parse(request.url,true); //将query转成对象
+    url.pathname();  //文件路径
+    url.port();   //url的端口号
+
+    http.createServer();  //创建一个服务
+    http.listen(8080, 'localhost'); //监听
+
+    fs.readFile('test.html', function(err, data) {})   //异步读取文件
+    fs.readFileSync('test.html', function(err, data){});  //同步读取文件
+    fs.open();  //打开一个文件
+    fs.close();  //关闭一个文件
+
+    mime.lookup();  读取文件内容类型('content-type')
+
+6. 写出几个global下的全局变量并注明其作用
+    process  //进程
+    nexttick  //异步执行   nexttick回调函数执行优先级大于setImmediate
+    setImmediate  //异步执行
+
+
+7. 写出几个process 下的几个属性或方法并注明其作用
+    process.on('data', function(data){ console.log(data}); //监听data事件
+    process.stdin   //标准输入流
+    process.stdout  //标准输出流
+    process.pid;   //进程的pid属性
+    process.kill('pid');  //杀死一个进程
+    process.cwd();   //返回当前进程的工作目录
+    process.chdir('..');  //改变当前进程的工作目录
