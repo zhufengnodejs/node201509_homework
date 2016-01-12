@@ -46,6 +46,8 @@ app.post("/reg",urlencodedParser,function(req,res){
         req.session.pwd=pwd;
         res.cookie("username",username,{maxAge:10*60*1000})
         res.redirect("/login")
+    }else{
+        res.redirect("/reg")
     }
 })
 app.get("/login",function(req,res){
@@ -69,8 +71,9 @@ app.post("/login",urlencodedParser,function(req,res){
     }
 })
 app.get("/unlogin",function(req,res){
-    console.log("unlogin")
+    //console.log("unlogin")
     req.session.sign=false;
+    res.redirect("/login")
 })
 app.use(function(req, res, next) {
     var err = new Error('Not Found');
