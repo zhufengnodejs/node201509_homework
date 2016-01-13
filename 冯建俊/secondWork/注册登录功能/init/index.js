@@ -16,16 +16,11 @@ app.use(session({
     resave:true,
     saveUninitialized:true
 }));
-function CheckLogin(req,res,next){
-    if(req.session.sign){
-        next()
-    }else if(req.session.username){
-        res.redirect("/login")
-    }else{
-        res.redirect("/reg")
-    }
-}
-app.get("/",CheckLogin,function(req,res){
+
+
+var checkLogin=require("./checkLogin")
+
+app.get("/",checkLogin,function(req,res){
     res.render("index",{title:"欢迎页",username:req.session.username})
 })
 app.get("/reg",function(req,res){
