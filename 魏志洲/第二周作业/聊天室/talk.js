@@ -25,26 +25,30 @@ function broadcast(name, msg){
 
 var server = net.createServer({allowHalfOpen:true},function(socket){
     var name;
+
+
+    var step = startWith(os.type()) ? "\r\n":"\n";
+    var regExp = startWith(os.type()) ? /\r\n/ : /\n/;
+
     socket.setEncoding("utf8");
     console.log("client IP: ", util.inspect(socket.remoteAddress));
     server.getConnections(function(err,count){
-        socket.write('欢迎光临，当前在线'+count+'人，请输入用户名\r\n>');
+        socket.write('欢迎光临，当前在线'+count+'人，请输入用户名'+step+'>');
     });
 
-    var regExp = startWith(os.type()) ? "/\r\n/":"/\n/";
 
     socket.on("data", function(data){
         console.log(data);
-        var info = data.replace(/\r\n/, "");
+        var info = data.replace(regExp, "");
         console.log("info :",info);
         if(info.length>1){
             if(name){
-                broadcast(name, name+":"+info+"\r\n");
+                broadcast(name, name+":"+info+step);
             }else{
                 name = info;
                 console.log("name :", name);
                 group[name] = socket;
-                broadcast(name, name+"加入了聊天室"+"\r\n");
+                broadcast(name, name+"加入了聊天室"+step);
             }
         }
 
@@ -54,7 +58,7 @@ var server = net.createServer({allowHalfOpen:true},function(socket){
     });
     socket.on("end", function(){
        console.log("end");
-        broadcast(name, name+"离开了聊天室"+"\r\n");
+        broadcast(name, name+"离开了聊天室"+step);
         group[name].destroy();
         delete group[name];
     });
