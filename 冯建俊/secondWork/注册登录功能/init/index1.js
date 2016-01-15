@@ -1,10 +1,7 @@
-"use strict";
-
 var express = require("express")
 var cookieParser=require("cookie-parser");
 var session = require('express-session');
 var bodyParser = require('body-parser')
-var MongoStore=require("connect-mongo")(session)
 var path=require("path")
 var app= express();
 
@@ -18,13 +15,7 @@ app.use(session({
     name: 'testapp',
     cookie: {maxAge: 60 * 1000 * 30}, // 过期时间（毫秒）
     resave:true,
-    saveUninitialized:true,
-    store:new MongoStore({
-        url:"mongodb://localhost:27017",
-        /*host:"localhost",
-        port:27017,*/
-        db:"test"
-    })
+    saveUninitialized:true
 }));
 
 
