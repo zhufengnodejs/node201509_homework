@@ -1,0 +1,10 @@
+1、cookie里的重要属性
+    name:保存字段名称
+    value保存字段的指
+    path：保存的目录
+    expires：过期实际
+    Domain：保存的所在的郁闷
+2、session里的重要属性同cookie
+3、get和post
+4、app.use(app.router);
+  app.use(express.static(path.join(__dirname, 'public')));
