@@ -21,9 +21,11 @@ var server=net.createServer(function(socket){
     server.getConnections(function(err,count){
         count=count;
     })
-    //socket.write("欢迎")
+    socket.write("欢迎加入聊天室 \r\n")
     socket.on("data",function(data){
+        console.log(data)
         if(data==="\r\n" && data.length>0){
+            //console.log(data)
             socket.pause();
             if(nickname){
                 var conData=dataArr.join("");
@@ -33,6 +35,7 @@ var server=net.createServer(function(socket){
                     nickname:nickname,
                     conData:conData
                 }
+                console.log(data)
                 writeData(opts)
             }else{
                 nickname=dataArr.join("");
@@ -76,6 +79,7 @@ var server=net.createServer(function(socket){
 })
 // 广播
 function writeData(opts){
+    console.log(opts)
     var nickname=opts.nickname,  //昵称
         flag=opts.flag || false,   //欢迎信息提示
         conData=opts.conData,  //对话内容
