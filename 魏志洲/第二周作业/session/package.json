@@ -1,0 +1,18 @@
+{
+  "name": "session",
+  "version": "1.0.0",
+  "description": "",
+  "main": "filestore.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cookie-parser": "^1.4.1",
+    "express": "^4.13.3",
+    "express-session": "^1.13.0",
+    "mkdirp": "^0.5.1",
+    "rmdirp": "^0.1.0"
+  }
+}
