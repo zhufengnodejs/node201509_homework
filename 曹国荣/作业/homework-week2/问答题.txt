@@ -1,0 +1,29 @@
+﻿1. 说明一下cookie里重要的属性，分别有什么作用？ 如Expire 过期时间
+
+name=value：键值对，可以设置要保存的 Key/Value，注意这里的 name 不能和其他属性项的名字一样
+Expires： 过期时间（秒），在设置的某个时间点后该 Cookie 就会失效，如 expires=Wednesday, 09-Nov-99 23:12:40 GMT
+maxAge： 最大失效时间（毫秒），设置在多少后失效
+secure： 当 secure 值为 true 时，cookie 在 HTTP 中是无效，在 HTTPS 中才有效
+Path： 表示 cookie 影响到的路径，如 path=/。如果路径不能匹配时，浏览器则不发送这个Cookie
+httpOnly：是微软对COOKIE做的扩展。如果在COOKIE中设置了“httpOnly”属性，则通过程序（JS脚本、applet等）将无法读取到COOKIE信息，防止XSS攻击产生
+
+2. 说明一下session里重要的属性，分别有什么作用？ 如 name 保存 session 的字段名称
+
+name: 设置 cookie 中，保存 session 的字段名称，默认为 connect.sid 。
+store: session 的存储方式，默认存放在内存中，也可以使用 redis，mongodb 等。express 生态中都有相应模块的支持。
+secret: 通过设置的 secret 字符串，来计算 hash 值并放在 cookie 中，使产生的 signedCookie 防篡改。
+cookie: 设置存放 session id 的 cookie 的相关选项，默认为 (default: { path: '/', httpOnly: true, secure: false, maxAge: null })(session数据放服务器端, ID通过cookie发给浏览器)
+genid: 产生一个新的 session_id 时，所使用的函数， 默认使用 uid2 这个 npm 包。
+rolling: 每个请求都重新设置一个 cookie，默认为 false。
+resave: 即使 session 没有被修改，也保存 session 值，默认为 true。
+saveUninitialized: 保存新创建但未修改使用的session
+
+3.请说出两种方式向客户端发送cookie的！
+
+1 使用response.writeHead
+2 使用response.setHeader
+
+4.列举出express中处理路由的方法
+app.get
+app.post
+app.all
