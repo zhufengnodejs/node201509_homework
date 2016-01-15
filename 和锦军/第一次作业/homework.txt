@@ -1,0 +1,77 @@
+＃问答题
+1. 200HTTP响应是什么意思?
+
+HTTP状态码200表示请求成功
+
+2.Connection:Keep-Alive头为什么很重要?
+
+使用Connection:Keep-Alivet头可以使客户端和服务器之间的HTTP连接被保持，当客户端发送另外一个请求时，就使用这条已经建立的连接
+
+3. 如何导入一个模块?
+使用require（模块名）导入一个模块，例如：
+var fs = require(‘fs’)
+
+4. 如何安装一个模块
+使用npm install xxx 命令安装,
+例如：
+npm install xxx --save-dev//自动把模块和版本号添加到devdependencies部分
+npm install xxx -D
+npm install xxx --save //自动把模块和版本号添加到dependencies部分
+npm install xxx -S
+npm install xxx -g //全局安装
+
+5. 写出 url http fs mime 模块中的几个常用方法，并注明其作用
+
+url模块
+url.parse（）//把URL参数解析成Object
+
+http模块
+
+http.createServer() //创建一个新的服务器实例
+server.listen(port,host,callback)//在指定主机名和端口上接收连接
+response.setHeader()//设置响应头信息
+response.statusCode = xxx //设置状态码
+response.write(data) //写入响应体
+response.end()//结束发送请求
+
+fs模块
+
+fs.readFile(url,function(err,data){})//异步读取一个文件内容
+fs.readFileSync(url) //同步读取一个文件内容
+fs.writeFile(url,callback) //异步的写入某个文件
+fs.writeFileSync() //同步的写入某个文件
+fs.open()//异步打开一个文件
+fs.openSync()//同步打开一个文件
+fs.read() //从指定的文档标识符fd异步读取文件数据。
+fs.readSync()//从指定的文档标识符fd同步读取文件数据。
+fs.write()//通过文件标识fd，向指定的文件中异步写入数据
+fs.writeSync()//通过文件标识fd，向指定的文件中同步写入数据
+fs.close()//以异步的方式关闭文件。
+fs.mkdir()//创建文件夹
+
+mime模块
+
+mime.lookup //获取一个文件相关的mime类型
+
+6. 写出几个global下的全局变量并注明其作用
+__dirname //当前执行脚本所在目录的目录名
+__filename //当前所执行代码文件的文件路径
+module // 当前模块的引用
+setTimeout() //设置延迟
+clearTimeout(t) //清除延迟
+setInterval() //设置定时器
+clearInterval() //清除定时器
+process //当前进程对象
+exports //导出对象
+require //加载模块的方法
+
+7.写出几个process 下的几个属性或方法并注明其作用
+process.stdout //一个指向标准输出流(stdout)的 可写的流
+process.stdin //一个指向 标准输入流(stdin) 的可读流
+process.cwd() //当前工作目录
+process.chdir() //改变当前目录
+process.nextTick(callback) //在事件循环的下一次循环中调用 callback 回调函数。
+process.argv // 一个包含命令行参数的数组。第一个元素会是 'node'， 第二个元素将是 .Js 文件的名称。接下来的元素依次是命令行传入的参数。
+process.kill(pid) //结束进程
+
+

@@ -1,0 +1,13 @@
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.cus_form{
+  width: 500px; margin: 100px auto; padding: 100px; border:2px solid #ccc; border-radius: 10px 10px 0 0 ; background-color: #f8f8f8;
+}
+.hy{text-align: center; font-size: 30px;}
+.hy span{ color: #c00;}

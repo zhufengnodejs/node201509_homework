@@ -1,0 +1,147 @@
+1. 200HTTP响应是什么意思
+答：200(成功)服务器已成功处理了请求。通常，这表示服务器提供了请求的网页。如果是对您的 robots.txt 文件显示此状态码，则表示 Googlebot 已成功检索到该文件。
+2. Connection:Keep-Alive头为什么很重要
+答：在老的HTTP版本中，每个请求都将被创建一个新的客户端->服务器的连接，在这个连接上发送请求，然后接收请求。这样的模式有一个很大的优点就是，它很简单，很容易理解和编程实现；它也有一个很大的缺点就是，它效率很低，因此Keep-Alive被提出用来解决效率低的问题。
+  Keep-Alive功能使客户端到服务器端的连接持续有效，当出现对服务器的后继请求时，Keep-Alive功能避免了建立或者重新建立连接。
+3. 如何导入一个模块
+（1）载入内置模块
+    Node的内置模块被编译为二进制形式，引用时直接使用名字而非文件路径。当第三方的模块和内置模块同名时，内置模块将覆盖第三方同名模块。因此命名时需要注意不要和内置模块同名。如获取一个http模块
+    var http = require('http')  返回的http即是实现了HTTP功能Node的内置模块。
+（2）载入文件模块
+    绝对路径的  var myMod = require('/home/base/my_mod')
+    相对路径的  var myMod = require('./my_mod')
+    注意，这里忽略了扩展名“.js”，以下是对等的
+    var myMod = require('./my_mod')
+    var myMod = require('./my_mod.js')
+（3）载入文件目录模块
+    可以直接require一个目录，假设有一个目录名为folder，如
+    var myMod = require('./folder')
+    此时，Node将搜索整个folder目录，Node会假设folder为一个包并试图找到包定义文件package.json。如果folder目录里没有包含package.json文件，Node会假设默认主文件为index.js，即会加载index.js。如果index.js也不存在，那么加载将失败。
+（4）载入node_modules里的模块
+    如果模块名不是路径，也不是内置模块，Node将试图去当前目录的node_modules文件夹里搜索。如果当前目录的node_modules里没有找到，Node会从父目录的node_modules里搜索，这样递归下去直到根目录。
+    不必担心，npm命令可让我们很方便的去安装，卸载，更新node_modules目录。
+4. 如何安装一个模块
+答：npm install 要安装的模块       将模块安装到当前目录
+    npm install 要安装的模块 -g    将模块安装为全局
+    npm install 要安装的模块 --save  安装模块并添加依赖
+5. 写出 url http fs mime 模块中的几个常用方法，并注明其作用
+答：（1）url的常用方法
+            1.parse方法来将一个URL字符串转换为URL对象
+            例如：url.parse('http://user:pass@host.com:8080/p/a/t/h?query=string#hash');
+             {
+              protocol: 'http:',
+              slashes: true,
+              auth: 'user:pass',
+              host: 'host.com:8080',
+              port: '8080',
+              hostname: 'host.com',
+              hash: '#hash',
+              search: '?query=string',
+              query: 'query=string',
+              pathname: '/p/a/t/h',
+              path: '/p/a/t/h?query=string',
+              href: 'http://user:pass@host.com:8080/p/a/t/h?query=string#hash' }
+            .parse方法还支持第二个和第三个布尔类型可选参数。第二个参数等于true时，该方法返回的URL对象中，query字段不再是一个字符串，而是一个经过querystring模块转换后的参数对象。第三个参数等于true时，该方法可以正确解析不带协议头的URL
+            2.format方法允许将一个URL对象转换为URL字符串
+            url.format({
+                protocol: 'http:',
+                host: 'www.example.com',
+                pathname: '/p/a/t/h',
+                search: 'query=string'
+            });====>'http://www.example.com/p/a/t/h?query=string'
+            3.resolve方法可以用于拼接URL
+            url.resolve('http://www.example.com/foo/bar', '../baz');
+            => http://www.example.com/baz
+            4.querystring模块用于实现URL参数字符串与参数对象的互相转换
+            querystring.parse('foo=bar&baz=qux&baz=quux&corge');
+            ==>{ foo: 'bar', baz: ['qux', 'quux'], corge: '' }
+            querystring.stringify({ foo: 'bar', baz: ['qux', 'quux'], corge: '' });
+            ==>'foo=bar&baz=qux&baz=quux&corge='
+    2.http的常用方法
+            直接通过http对象使用的有：
+            1.http.STATUS_CODES  获取状态码，根据状态码来确定服务器是处于请求的什么状态。
+            2.http.createServer  创建一台web服务器的关键所在，是处理请求和回应的主函数出口和出口
+            3.http.request(http.ClientRequest)  http 模块提供了两个函数 http.request 和 http.get，功能是作为客户端向 HTTP服务器发起请求。http.request(options, callback) 发起 HTTP 请求。接受两个参数，option 是一个类似关联数组的对象，表示请求的参数，callback 是请求的回调函数。
+            4.http.get   http.get(options, callback) http 模块还提供了一个更加简便的方法用于处理GET请求：http.get。它是 http.request 的简化版，唯一的区别在于http.get自动将请求方法设为了 GET 请求，同时不需要手动调用 req.end()。
+            作为回调参数使用的对象有：
+            1.http.serverRequest
+            2.http.serverResponse
+            3.http.Agent
+    3.fs的常用方法
+            （1）fs.open(path, flags, [mode], callback)  异步版的文件打开
+            注意: 这并不意味着 fs.open() 变成了一个同步阻塞的请求. 如果你想要一个同步阻塞的请求你应该使用 fs.openSync().
+            （2）fs.read(fd, buffer, offset, length, position, callback)  从指定的文档标识符fd读取文件数据。
+            buffer 是缓冲区，数据将会写入这里。
+            offset 是开始向缓冲区 buffer 写入的偏移量。
+            length 是一个整形值，指定了读取的字节数。
+            position 是一个整形值，指定了从哪里开始读取文件，如果position为null，将会从文件当前的位置读取数据。
+            回调函数给定了三个参数， (err, bytesRead, buffer)， 分别为错误，读取的字节和缓冲区。
+            （3）fs.readSync(fd, buffer, offset, length, position)
+            fs.read 函数的同步版本。 返回bytesRead的个数。
+            （4）fs.readFile(filename, [options], callback) 异步读取一个文件的全部内容
+                fs.readFile('/etc/passwd', function (err, data) {
+                  if (err) throw err;
+                  console.log(data);
+                });
+                回调函数传递了两个参数 (err, data), data 就是文件的内容。 如果未指定编码方式，原生buffer就会被返回。
+             （5）fs.readFileSync(filename, [options])
+                fs.readFile的同步版本。 返回文件名为 filename 的文件内容。
+                如果 encoding 选项被指定， 那么这个函数返回一个字符串。如果未指定，则返回一个原生buffer。
+             （6）fs.write(fd, buffer, offset, length[, position], callback)
+                通过文件标识fd，向指定的文件中写入buffer。offset 和length 可以确定从哪个位置开始写入buffer。
+                position 是参考当前文档光标的位置，然后从该处写入数据。如果typeof position !== 'number'，那么数据会从当前文档位置写入
+                回调中会给出三个参数 (err, written, buffer)，written 说明从buffer写入的字节数。
+             （7）fs.writeSync(fd, buffer, offset, length[, position])
+                同步版本的fs.write()。返回写入的字节数。
+             （8）fs.writeFile(filename, data, [options], callback)
+                异步的将数据写入一个文件, 如果文件原先存在，会被替换。 data 可以是一个string，也可以是一个原生buffer。
+                encoding 选项会被忽视如果 data 不是string而是原生buffer。encoding缺省为 'utf8'。
+                fs.writeFile('message.txt', 'Hello Node', function (err) {
+                  if (err) throw err;
+                  console.log('It\'s saved!'); //文件被保存
+                });
+             （9）fs.writeFile的同步版本。
+    4.mime的常用方法
+        mime是一个互联网标准，通过设定它就可以设定文件在浏览器的打开方式。
+        mime.lookup(url)   获取文件的mime类型
+        var Response = function(res,filePath){
+            //读取文件，读取完成后给客户端响应
+            fs.readFile(filePath,function(err,data){
+                if(err){                        //如果失败，就返回错误文件
+                    if(filePath != error)       //如果失败的不是错误文件，才返回错误文件
+                        Response(res,error);
+                }else{
+                    /**
+                     * 通过使用mime模块设定mime类型
+                     */
+                    res.writeHead(200,{                     //响应客户端，将文件内容发回去
+                        'Content-type':mime.lookup(filePath)});    //通过后缀名指定mime类型
+                    res.end(data);
+                }
+         });
+6. 写出几个global下的全局变量并注明其作用
+    1.process  进程对象。
+    2.console  用于打印标准输出和标准错误。例如：console.log("Hello Bigbear !") ;
+    3.exports与module.exports  module.exports对象的引用，该对象被当前模块的所有实例所共享，通过require()可访问该对象。exports实际上并非全局的而是各个模块本地的。
+    4.setTimeout(cb, ms) 在至少ms毫秒后调用回调cb。实际延迟取决于外部因素，如操作系统定时器粒度及系统负载。
+    5.setInterval(cb, ms) 每隔ms毫秒重复调用回调cb。注意，取决于外部因素，如操作系统定时器粒度及系统负载，实际间隔可能会改变。它不会少于ms但可能比ms长。
+    6.__filename  当前所执行代码文件的文件路径。这是该代码文件经过解析后的绝对路径。对于主程序来说，这和命令行中使用的文件路径未必是相同的。在模块中此变量值是该模块文件的路径。
+    7.__dirname  当前执行脚本所在目录的目录名。
+7. 写出几个process 下的几个属性或方法并注明其作用
+    1.process.cwd()  返回进程当前的工作目录。
+    2.process.argv 一个包含命令行参数的数组。第一个元素会是 'node'， 第二个元素将是 .Js 文件的名称。接下来的元素依次是命令行传入的参数。
+    // 打印 process.argv
+    process.argv.forEach(function(val, index, array) {
+     console.log(index + ': ' + val);
+    });
+    3.process.chdir(directory) 改变进程的当前进程的工作目录，若操作失败则抛出异常
+    4.process.nextTick(callback) 在事件循环的下一次循环中调用 callback 回调函数。
+    console.log('开始');
+    process.nextTick(function() {
+        console.log('nextTick 回调');
+    });
+    console.log('已设定');
+    ====> 开始   已设定  nextTick 回调
+
+
+

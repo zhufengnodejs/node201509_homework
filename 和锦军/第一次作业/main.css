@@ -1,0 +1,13 @@
+html,body,h1,p{
+    padding: 0;
+    margin: 0;
+}
+
+h1{
+    color: #f00;
+}
+
+p{
+    color: #cccccc;
+    border: 1px solid;
+}
