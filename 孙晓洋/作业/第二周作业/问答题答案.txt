@@ -1,0 +1,25 @@
+1. 说明一下cookie里重要的属性，分别有什么作用？ 如Expire 过期时间
+答：Expires – 过期时间。指定cookie的生命期。具体是值是过期日期。如果想让cookie的存在期限超过当前浏览器会话时间，就必须使用这个属性。
+    Path – 路径。指定与cookie关联的WEB页。值可以是一个目录，或者是一个路径。如果/head/index.html 建立了一个cookie，那么在/head/目录里的所有页面，以及该目录下面任何子目录里的页面都可以访问这个cookie。
+    Domain – 域。指定关联的WEB服务器或域。值是域名，比如baidu.com。这是对path路径属性的一个延伸。
+    Secure – 安全。指定cookie的值通过网络如何在用户和WEB服务器之间传递。这个属性的值或者是“secure”，或者为空。
+2.说明一下session里重要的属性，分别有什么作用？ 如 name 保存 session 的字段名称
+答：SessionID属性  用来标识每一个Session对象
+    TimeOut属性  用来设置Session会话的超时时间（以分钟表示）
+3.请说出两种方式向客户端发送cookie的！
+答：setcookie() 函数向客户端发送一个 HTTP cookie。
+4.列举出express中处理路由的方法
+    // GET method route
+    app.get('/', function (req, res) {
+      res.send('GET request to the homepage');
+    });
+
+    // POST method route
+    app.post('/', function (req, res) {
+      res.send('POST request to the homepage');
+    });
+
+    app.all('/secret', function (req, res, next) {
+      console.log('Accessing the secret section ...');
+      next(); // pass control to the next handler
+    });
